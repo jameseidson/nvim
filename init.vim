@@ -1,5 +1,4 @@
 let tabSize=2
-
 let &tabstop=tabSize
 let &shiftwidth=tabSize
 
@@ -32,3 +31,5 @@ set incsearch
 set hlsearch
 set smartcase
 set ignorecase
+
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
