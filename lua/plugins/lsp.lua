@@ -22,7 +22,7 @@ return {
     local cmp = require("cmp")
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
-    lsp.preset("recommended")
+    lsp.preset("minimal")
 
     lsp.setup_nvim_cmp({
       sources = {
