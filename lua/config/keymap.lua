@@ -40,13 +40,13 @@ return {
     vim.keymap.set("n",       "<leader>cr", "<cmd>Lspsaga rename<CR>",               { desc = "rename symbol in file" })
     vim.keymap.set("n",       "<leader>cR", "<cmd>Lspsaga rename ++project<CR>",     { desc = "rename symbol in workspace" })
 
-    vim.keymap.set("n",       "[d",         "<cmd>Lspsaga diagnostic_jump_prev<CR>", { desc = "jump to prev diagnostic" })
-    vim.keymap.set("n",       "]d",         "<cmd>Lspsaga diagnostic_jump_next<CR>", { desc = "jump to next diagnostic" })
-    vim.keymap.set("n", "[e", function()
+    -- vim.keymap.set("n",       "[d",         "<cmd>Lspsaga diagnostic_jump_prev<CR>", { desc = "jump to prev diagnostic" })
+    -- vim.keymap.set("n",       "]d",         "<cmd>Lspsaga diagnostic_jump_next<CR>", { desc = "jump to next diagnostic" })
+    vim.keymap.set("n", "[d", function()
         require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
       end,
       { desc = "jump to prev error" })
-    vim.keymap.set("n", "]e", function()
+    vim.keymap.set("n", "]d", function()
         require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
       end,
       { desc = "jump to next error" })
