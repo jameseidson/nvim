@@ -14,8 +14,7 @@ vim.keymap.set(
 	{ desc = "replace word under cursor" }
 )
 
-return {
-	tree = function(tree)
+return { tree = function(tree)
 		vim.keymap.set("n", "<leader>e", function()
 			tree.toggle({ find_file = true })
 		end, { desc = "open file explorer" })
