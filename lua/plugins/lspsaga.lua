@@ -3,8 +3,9 @@ local set_keymap = require("config.keymap").lspsaga
 return {
   "nvimdev/lspsaga.nvim",
   dependencies = {
-    { "nvim-tree/nvim-web-devicons"     },
-    { "nvim-treesitter/nvim-treesitter" },
+    "neovim/nvim-lspconfig",
+    "nvim-treesitter/nvim-treesitter",
+    "nvim-tree/nvim-web-devicons",
   },
   event = "LspAttach",
   init = set_keymap,

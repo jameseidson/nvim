@@ -20,21 +20,41 @@ return {
     vim.keymap.set("n",          "<leader>fh",    telescope.help_tags,                                 { desc = "find help by tag"              })
     vim.keymap.set("n",          "<leader>fd",    function() telescope.diagnostics({ bufnr = 0 }) end, { desc = "find diagnostic in file"       })
     vim.keymap.set("n",          "<leader>fD",    telescope.diagnostics,                               { desc = "find diagnostic in workspace"  })
+    vim.keymap.set("n",          "<leader>fs",    "<cmd>Telescope lsp_document_symbols<cr>",           { remap = false, desc = "find symbol in file"      })
+    vim.keymap.set("n",          "<leader>fS",    "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",  { remap = false, desc = "find symbol in workspace" })
+  end,
+  cmp = function(cmp)
+    return {
+      ["<CR>"] = cmp.mapping({
+        i = function(fallback)
+          if cmp.visible() and cmp.get_active_entry() then
+            cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+          else
+            fallback()
+          end
+        end,
+       s = cmp.config.disable,
+       c = cmp.config.disable,
+      }),
+
+      ["<Tab>"]     = cmp.mapping.select_next_item(),
+      ["<S-Tab>"]   = cmp.mapping.select_prev_item(),
+      ["<C-u>"]     = cmp.mapping.scroll_docs(-4),
+      ["<C-d>"]     = cmp.mapping.scroll_docs(4),
+      ["<C-Space>"] = cmp.mapping.complete(),
+      ["<C-e>"]     = cmp.mapping.abort(),
+    }
   end,
   undotree = function()
-    vim.keymap.set("n",          "<leader>u",     vim.cmd.UndotreeToggle,                              { desc = "show undo tree" })
-  end,
-  lsp = function(_, buf)
-    vim.keymap.set("n",          "<C-LeftMouse>", vim.lsp.buf.definition,                              { buffer = buf, remap = false, desc = "go to definition"         })
-    vim.keymap.set("n",          "<leader>fs",    "<cmd>Telescope lsp_document_symbols<cr>",           { buffer = buf, remap = false, desc = "find symbol in file"      })
-    vim.keymap.set("n",          "<leader>fS",    "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",  { buffer = buf, remap = false, desc = "find symbol in workspace" })
+    vim.keymap.set("n","<leader>u",     vim.cmd.UndotreeToggle, { desc = "show undo tree" })
   end,
   lspsaga = function()
-    vim.keymap.set("n",       "gd",         "<cmd>Lspsaga goto_definition<CR>",      { desc = "goto definition" })
-    vim.keymap.set("n",       "gr",         "<cmd>Lspsaga lsp_finder<CR>",           { desc = "view references" })
-    vim.keymap.set("n",       "gt",         "<cmd>Lspsaga goto_type_definition<CR>", { desc = "goto type definition" })
-    vim.keymap.set("n",       "<leader>vd", "<cmd>Lspsaga peek_definition<CR>",      { desc = "view definition" })
-    vim.keymap.set("n",       "<leader>vt", "<cmd>Lspsaga peek_type_definition<CR>", { desc = "view type definition" })
+    vim.keymap.set("n",       "<C-LeftMouse>", "<cmd>Lspsaga goto_definition<CR>",   { desc = "goto definition" })
+    vim.keymap.set("n",       "gd",            "<cmd>Lspsaga goto_definition<CR>",      { desc = "goto definition" })
+    vim.keymap.set("n",       "gr",            "<cmd>Lspsaga lsp_finder<CR>",           { desc = "view references" })
+    vim.keymap.set("n",       "gt",            "<cmd>Lspsaga goto_type_definition<CR>", { desc = "goto type definition" })
+    vim.keymap.set("n",       "<leader>vd",    "<cmd>Lspsaga peek_definition<CR>",      { desc = "view definition" })
+    vim.keymap.set("n",       "<leader>vt",    "<cmd>Lspsaga peek_type_definition<CR>", { desc = "view type definition" })
 
     vim.keymap.set({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>",          { desc = "code action" })
     vim.keymap.set("n",       "<leader>cr", "<cmd>Lspsaga rename<CR>",               { desc = "rename symbol in file" })
