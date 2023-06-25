@@ -3,13 +3,13 @@ vim.g.mapleader = " "
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "move selection up" })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "move selection down" })
 vim.keymap.set("n", "J", "mzJ`z", { desc = "join lines" })
-vim.keymap.set("n", "<leader>p", '"_dP', { desc = "put without overwiting buffer" })
-vim.keymap.set({ "n", "v" }, "<leader>p", '"_d', { desc = "put without overwiting buffer" })
+vim.keymap.set("x", "<leader>p", '"_dP', { desc = "put without overwiting buffer" })
+vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "delete without overwiting buffer" })
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "yank selection into system clipboard" })
 vim.keymap.set({ "n", "v" }, "<leader>Y", '"+Y', { desc = "yank line into system clipboard" })
 vim.keymap.set(
 	"n",
-	"<leader>d",
+	"<leader>r",
 	":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>",
 	{ desc = "replace word under cursor" }
 )
@@ -50,7 +50,17 @@ M.telescope = {
 		)
 	end,
 
-	get_local = nil,
+	get_local = function()
+		local mapping = {
+			["<Tab>"] = "move_selection_next",
+			["<S-Tab>"] = "move_selection_previous",
+		}
+
+		return {
+			i = mapping,
+			n = mapping,
+		}
+	end,
 }
 
 M.cmp = {
@@ -111,7 +121,7 @@ M.lspsaga = {
 }
 
 M.gitsigns = {
-	set_global = function(gitsigns, bufnr)
+	set_global = function(gitsigns, _)
 		vim.keymap.set("n", "]c", function()
 			if vim.wo.diff then
 				return "]c"
