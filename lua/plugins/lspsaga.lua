@@ -1,4 +1,4 @@
-local set_keymap = require("config.keymap").lspsaga
+local keymap = require("config.keymap").lspsaga
 
 return {
 	"nvimdev/lspsaga.nvim",
@@ -8,7 +8,7 @@ return {
 		"nvim-tree/nvim-web-devicons",
 	},
 	event = "LspAttach",
-	init = set_keymap,
+	init = keymap.set_global,
 	opts = {
 		hover = {
 			open_browser = "!firefox",

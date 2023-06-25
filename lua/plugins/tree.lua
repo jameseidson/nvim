@@ -1,10 +1,10 @@
-local set_keymap = require("config.keymap").tree
+local keymap = require("config.keymap").tree
 
 return {
 	"nvim-tree/nvim-tree.lua",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	init = function()
-		set_keymap(require("nvim-tree.api").tree)
+		keymap.set_global(require("nvim-tree.api").tree)
 	end,
 	config = function()
 		vim.g.loaded_netrw = 1

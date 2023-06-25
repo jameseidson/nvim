@@ -1,4 +1,4 @@
-local get_keymap = require("config.keymap").cmp
+local keymap = require("config.keymap").cmp
 
 return {
 	"hrsh7th/nvim-cmp",
@@ -25,7 +25,7 @@ return {
 				completion = cmp.config.window.bordered(),
 				documentation = cmp.config.window.bordered(),
 			},
-			mapping = cmp.mapping.preset.insert(get_keymap(cmp)),
+			mapping = cmp.mapping.preset.insert(keymap.get_local(cmp)),
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp" },
 				{ name = "ultisnips" },
