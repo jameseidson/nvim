@@ -54,6 +54,7 @@ M.telescope = {
 		local mapping = {
 			["<Tab>"] = "move_selection_next",
 			["<S-Tab>"] = "move_selection_previous",
+			["<C-s>"] = "select_horizontal",
 		}
 
 		return {
@@ -112,12 +113,31 @@ M.lspsaga = {
 
 		vim.keymap.set("n", "<leader>o", "<cmd>Lspsaga outline<CR>", { desc = "toggle symbol outline" })
 		vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { desc = "hover documentation" })
-		vim.keymap.set("n", "<Leader>vi", "<cmd>Lspsaga incoming_calls<CR>", { desc = "view incoming calls" })
-		vim.keymap.set("n", "<Leader>vo", "<cmd>Lspsaga outgoing_calls<CR>", { desc = "view outgoing calls" })
+		-- vim.keymap.set("n", "<Leader>vi", "<cmd>Lspsaga incoming_calls<CR>", { desc = "view incoming calls" })
+		-- vim.keymap.set("n", "<Leader>vo", "<cmd>Lspsaga outgoing_calls<CR>", { desc = "view outgoing calls" })
 		vim.keymap.set({ "n", "t" }, "<A-d>", "<cmd>Lspsaga term_toggle<CR>", { desc = "toggle floating terminal" })
 	end,
 
-	get_local = nil,
+	get_local = function()
+		return {
+			finder = {
+				jump_to = nil,
+				tabe = nil,
+				expand_or_jump = "<CR>",
+				vsplit = "<C-v>",
+				split = "<C-s>",
+				tabnew = "<C-t>",
+				quit = { "<ESC>", "<C-c>" },
+				close_in_preview = { "<ESC>", "<C-c>" },
+			},
+			definition = {
+				quit = { "q", "<ESC>" },
+			},
+			code_action = {
+				quit = { "q", "<ESC>" },
+			},
+		}
+	end,
 }
 
 M.gitsigns = {
