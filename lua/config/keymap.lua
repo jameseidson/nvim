@@ -48,6 +48,7 @@ M.telescope = {
 			"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
 			{ remap = false, desc = "find symbol in workspace" }
 		)
+		vim.keymap.set("n", "<leader>fr", telescope.lsp_references, { noremap = true, desc = "find references" })
 	end,
 
 	get_local = function()
@@ -91,53 +92,63 @@ M.cmp = {
 	end,
 }
 
-M.lspsaga = {
+M.lsp = {
+	set_global = function(buf)
+		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = buf, desc = "goto declaration" })
+		vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = buf, desc = "goto definition" })
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = buf, desc = "hover docs" })
+		vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = buf, desc = "goto implementation" })
+		vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { buffer = buf, desc = "signature help" })
+		vim.keymap.set(
+			"n",
+			"<space>wa",
+			vim.lsp.buf.add_workspace_folder,
+			{ buffer = buf, desc = "add folder to workspace" }
+		)
+		vim.keymap.set(
+			"n",
+			"<space>wr",
+			vim.lsp.buf.remove_workspace_folder,
+			{ buffer = buf, desc = "remove folder from workspace" }
+		)
+		vim.keymap.set("n", "<space>wl", function()
+			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+		end, { buffer = buf, desc = "list folders in workspace" })
+		vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, { buffer = buf, desc = "goto type definition" })
+		vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, { buffer = buf, desc = "rename" })
+		vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { buffer = buf, desc = "code action" })
+	end,
+}
+
+M.trouble = {
 	set_global = function()
-		vim.keymap.set("n", "<C-LeftMouse>", "<cmd>Lspsaga goto_definition<CR>", { desc = "goto definition" })
-		vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<CR>", { desc = "goto definition" })
-		vim.keymap.set("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", { desc = "view references" })
-		vim.keymap.set("n", "gD", "<cmd>Lspsaga goto_type_definition<CR>", { desc = "goto type definition" })
-		vim.keymap.set("n", "<leader>vd", "<cmd>Lspsaga peek_definition<CR>", { desc = "view definition" })
-		vim.keymap.set("n", "<leader>vD", "<cmd>Lspsaga peek_type_definition<CR>", { desc = "view type definition" })
-
-		vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { desc = "code action" })
-		vim.keymap.set("n", "<leader>cr", "<cmd>Lspsaga rename<CR>", { desc = "rename symbol in file" })
-		vim.keymap.set("n", "<leader>cR", "<cmd>Lspsaga rename ++project<CR>", { desc = "rename symbol in workspace" })
-
-		vim.keymap.set("n", "[d", function()
-			require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
-		end, { desc = "jump to prev error" })
-		vim.keymap.set("n", "]d", function()
-			require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
-		end, { desc = "jump to next error" })
-
-		vim.keymap.set("n", "<leader>o", "<cmd>Lspsaga outline<CR>", { desc = "toggle symbol outline" })
-		vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { desc = "hover documentation" })
-		-- vim.keymap.set("n", "<Leader>vi", "<cmd>Lspsaga incoming_calls<CR>", { desc = "view incoming calls" })
-		-- vim.keymap.set("n", "<Leader>vo", "<cmd>Lspsaga outgoing_calls<CR>", { desc = "view outgoing calls" })
-		vim.keymap.set({ "n", "t" }, "<A-d>", "<cmd>Lspsaga term_toggle<CR>", { desc = "toggle floating terminal" })
+		vim.keymap.set(
+			"n",
+			"<leader>xw",
+			"<cmd>TroubleToggle workspace_diagnostics<cr>",
+			{ silent = true, desc = "show workspace diagnostics" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>xd",
+			"<cmd>TroubleToggle document_diagnostics<cr>",
+			{ silent = true, desc = "show document diganostics" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>xl",
+			"<cmd>TroubleToggle loclist<cr>",
+			{ silent = true, desc = "show location list" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>xq",
+			"<cmd>TroubleToggle quickfix<cr>",
+			{ silent = true, desc = "show quickfix list" }
+		)
+		vim.keymap.set("n", "gr", "<cmd>TroubleToggle lsp_references<cr>", { silent = true, desc = "show references" })
 	end,
-
-	get_local = function()
-		return {
-			finder = {
-				jump_to = nil,
-				tabe = nil,
-				expand_or_jump = "<CR>",
-				vsplit = "<C-v>",
-				split = "<C-s>",
-				tabnew = "<C-t>",
-				quit = { "<ESC>", "<C-c>" },
-				close_in_preview = { "<ESC>", "<C-c>" },
-			},
-			definition = {
-				quit = { "q", "<ESC>" },
-			},
-			code_action = {
-				quit = { "q", "<ESC>" },
-			},
-		}
-	end,
+	get_local = function() end,
 }
 
 M.gitsigns = {
@@ -177,6 +188,16 @@ M.gitsigns = {
 	end,
 
 	get_local = nil,
+}
+
+M.aerial = {
+	set_global = function()
+		vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle! right<cr>", { desc = "toggle symbol outline" })
+	end,
+	set_local = function(buf)
+		vim.keymap.set("n", "<Tab>", "<cmd>AerialNext<cr>", { buffer = buf, desc = "toggle symbol outline" })
+		vim.keymap.set("n", "<S-Tab>", "<cmd>AerialPrev<cr>", { buffer = buf, desc = "toggle symbol outline" })
+	end,
 }
 
 M.undotree = {
