@@ -6,9 +6,10 @@ return {
 	init = function()
 		keymap.set_global(require("nvim-tree.api").tree)
 	end,
-	config = function()
+	opts = { view = {} },
+	config = function(_, opts)
 		vim.g.loaded_netrw = 1
 		vim.g.loaded_netrwPlugin = 1
-		require("nvim-tree").setup()
+		require("nvim-tree").setup(opts)
 	end,
 }

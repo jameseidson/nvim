@@ -1,6 +1,5 @@
 return {
-	"tpope/vim-surround",
-	dependencies = {
-		"tpope/vim-repeat",
-	},
+	"kylechui/nvim-surround",
+	event = "VeryLazy",
+	config = true,
 }
