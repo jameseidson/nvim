@@ -7,10 +7,5 @@ return {
 	init = function()
 		keymap.set_global(require("telescope.builtin"))
 	end,
-	opts = {
-		defaults = {
-			mappings = keymap.get_local(),
-		},
-	},
 	config = true,
 }

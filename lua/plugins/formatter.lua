@@ -12,6 +12,7 @@ return {
 				javascript = { ft.javascript.prettierd },
 				typescript = { ft.typescript.prettierd },
 				javascriptreact = { ft.javascriptreact.prettierd },
+				typescriptreact = { ft.typescriptreact.prettierd },
 				html = { ft.html.prettierd },
 				css = { ft.css.prettierd },
 				scss = { ft.css.prettierd },

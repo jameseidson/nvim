@@ -30,39 +30,39 @@ M.telescope = {
 	set_global = function(telescope)
 		vim.keymap.set("n", "<leader>ff", telescope.find_files, { desc = "find file by name" })
 		vim.keymap.set("n", "<leader>fc", telescope.live_grep, { desc = "find file by contents" })
+		vim.keymap.set("n", "<leader>fv", telescope.grep_string, { desc = "find visual selection" })
 		vim.keymap.set("n", "<leader>fb", telescope.buffers, { desc = "find buffer by name" })
 		vim.keymap.set("n", "<leader>fh", telescope.help_tags, { desc = "find help by tag" })
-		vim.keymap.set("n", "<leader>fd", function()
-			telescope.diagnostics({ bufnr = 0 })
-		end, { desc = "find diagnostic in file" })
-		vim.keymap.set("n", "<leader>fD", telescope.diagnostics, { desc = "find diagnostic in workspace" })
-		vim.keymap.set(
-			"n",
-			"<leader>fs",
-			"<cmd>Telescope lsp_document_symbols<cr>",
-			{ remap = false, desc = "find symbol in file" }
-		)
-		vim.keymap.set(
-			"n",
-			"<leader>fS",
-			"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
-			{ remap = false, desc = "find symbol in workspace" }
-		)
-		vim.keymap.set("n", "<leader>fr", telescope.lsp_references, { noremap = true, desc = "find references" })
+		vim.keymap.set("n", "<leader>fj", telescope.jumplist, { desc = "find in jumplist" })
+
+		vim.keymap.set("n", "<leader>gb", telescope.git_branches, { desc = "show git branches" })
+		vim.keymap.set("n", "<leader>gc", telescope.git_bcommits, { desc = "show git commits to buffer" })
+
+		vim.api.nvim_create_autocmd("LspAttach", {
+			callback = function()
+				vim.keymap.set("n", "gd", telescope.lsp_definitions, { desc = "find definitions" })
+				vim.keymap.set("n", "gr", telescope.lsp_references, { desc = "find references" })
+				vim.keymap.set("n", "<leader>fd", function()
+					telescope.diagnostics({ bufnr = 0 })
+				end, { desc = "find diagnostic in file" })
+				vim.keymap.set("n", "<leader>fD", telescope.diagnostics, { desc = "find diagnostic in workspace" })
+				vim.keymap.set(
+					"n",
+					"<leader>fs",
+					"<cmd>Telescope lsp_document_symbols<cr>",
+					{ remap = false, desc = "find symbol in file" }
+				)
+				vim.keymap.set(
+					"n",
+					"<leader>fS",
+					"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
+					{ remap = false, desc = "find symbol in workspace" }
+				)
+			end,
+		})
 	end,
 
-	get_local = function()
-		local mapping = {
-			["<Tab>"] = "move_selection_next",
-			["<S-Tab>"] = "move_selection_previous",
-			["<C-s>"] = "select_horizontal",
-		}
-
-		return {
-			i = mapping,
-			n = mapping,
-		}
-	end,
+	get_local = nil,
 }
 
 M.cmp = {
@@ -94,62 +94,38 @@ M.cmp = {
 
 M.lsp = {
 	set_global = function(buf)
-		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = buf, desc = "goto declaration" })
-		vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = buf, desc = "goto definition" })
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = buf, desc = "hover docs" })
-		vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = buf, desc = "goto implementation" })
 		vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { buffer = buf, desc = "signature help" })
+		vim.keymap.set("n", "]d", function()
+			vim.diagnostic.goto_next()
+			vim.diagnostic.open_float(nil, { focus = false })
+		end, { desc = "goto next diagnostic" })
+		vim.keymap.set("n", "[d", function()
+			vim.diagnostic.goto_prev()
+			vim.diagnostic.open_float(nil, { focus = false })
+		end, { desc = "goto previous diagnostic" })
+
 		vim.keymap.set(
 			"n",
-			"<space>wa",
+			"<leader>wa",
 			vim.lsp.buf.add_workspace_folder,
 			{ buffer = buf, desc = "add folder to workspace" }
 		)
 		vim.keymap.set(
 			"n",
-			"<space>wr",
+			"<leader>wr",
 			vim.lsp.buf.remove_workspace_folder,
 			{ buffer = buf, desc = "remove folder from workspace" }
 		)
-		vim.keymap.set("n", "<space>wl", function()
+		vim.keymap.set("n", "<leader>wl", function()
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 		end, { buffer = buf, desc = "list folders in workspace" })
-		vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, { buffer = buf, desc = "goto type definition" })
-		vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, { buffer = buf, desc = "rename" })
-		vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { buffer = buf, desc = "code action" })
+		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = buf, desc = "rename" })
+		vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = buf, desc = "code action" })
 	end,
 }
 
-M.trouble = {
-	set_global = function()
-		vim.keymap.set(
-			"n",
-			"<leader>xw",
-			"<cmd>TroubleToggle workspace_diagnostics<cr>",
-			{ silent = true, desc = "show workspace diagnostics" }
-		)
-		vim.keymap.set(
-			"n",
-			"<leader>xd",
-			"<cmd>TroubleToggle document_diagnostics<cr>",
-			{ silent = true, desc = "show document diganostics" }
-		)
-		vim.keymap.set(
-			"n",
-			"<leader>xl",
-			"<cmd>TroubleToggle loclist<cr>",
-			{ silent = true, desc = "show location list" }
-		)
-		vim.keymap.set(
-			"n",
-			"<leader>xq",
-			"<cmd>TroubleToggle quickfix<cr>",
-			{ silent = true, desc = "show quickfix list" }
-		)
-		vim.keymap.set("n", "gr", "<cmd>TroubleToggle lsp_references<cr>", { silent = true, desc = "show references" })
-	end,
-	get_local = function() end,
-}
+M.harpoon = {}
 
 M.gitsigns = {
 	set_global = function(gitsigns, _)

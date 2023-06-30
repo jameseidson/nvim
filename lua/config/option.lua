@@ -2,6 +2,7 @@ local opt = vim.opt
 
 opt.nu = true
 opt.relativenumber = true
+opt.numberwidth = 5
 opt.cursorline = true
 opt.tabstop = 2
 opt.softtabstop = 2
@@ -16,6 +17,7 @@ opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 opt.undofile = true
 opt.hlsearch = false
 opt.incsearch = true
+opt.ignorecase = true
 opt.termguicolors = true
 opt.background = "dark"
 opt.scrolloff = 1024
