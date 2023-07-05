@@ -34,6 +34,7 @@ M.telescope = {
 		vim.keymap.set("n", "<leader>fb", telescope.buffers, { desc = "find buffer by name" })
 		vim.keymap.set("n", "<leader>fh", telescope.help_tags, { desc = "find help by tag" })
 		vim.keymap.set("n", "<leader>fj", telescope.jumplist, { desc = "find in jumplist" })
+		vim.keymap.set("n", "<leader>fm", telescope.marks, { desc = "find mark" })
 
 		vim.keymap.set("n", "<leader>gb", telescope.git_branches, { desc = "show git branches" })
 		vim.keymap.set("n", "<leader>gc", telescope.git_bcommits, { desc = "show git commits to buffer" })

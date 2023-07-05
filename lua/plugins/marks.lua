@@ -1,4 +1,4 @@
 return {
-	"ThePrimeagen/harpoon",
+	"chentoast/marks.nvim",
 	config = true,
 }

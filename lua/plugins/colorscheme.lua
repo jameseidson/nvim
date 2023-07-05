@@ -25,4 +25,8 @@ return {
 		"pineapplegiant/spaceduck",
 		lazy = true,
 	},
+	{
+		"rose-pine/neovim",
+		lazy = true,
+	},
 }
