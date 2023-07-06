@@ -11,12 +11,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	desc = "disable auto-commenting on newline",
 })
 
--- vim.api.nvim_create_autocmd("CursorHold, CursorHoldI", {
--- 	callback = function()
--- 		vim.diagnostic.open_float(nil, { focus = false })
--- 	end,
--- })
-
 return {
 	fmt_on_save = function()
 		autocmd("BufWritePost", {

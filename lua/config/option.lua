@@ -24,4 +24,4 @@ vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 200
 
-vim.diagnostic.config({ update_in_insert = true, virtual_text = false })
+vim.diagnostic.config({ update_in_insert = true })
