@@ -31,10 +31,11 @@ M.telescope = {
 		vim.keymap.set("n", "<leader>ff", telescope.find_files, { desc = "find file by name" })
 		vim.keymap.set("n", "<leader>fc", telescope.live_grep, { desc = "find file by contents" })
 		vim.keymap.set("n", "<leader>fv", telescope.grep_string, { desc = "find visual selection" })
-		vim.keymap.set("n", "<leader>fb", telescope.buffers, { desc = "find buffer by name" })
 		vim.keymap.set("n", "<leader>fh", telescope.help_tags, { desc = "find help by tag" })
 		vim.keymap.set("n", "<leader>fj", telescope.jumplist, { desc = "find in jumplist" })
 		vim.keymap.set("n", "<leader>fm", telescope.marks, { desc = "find mark" })
+
+		vim.keymap.set("n", "<leader>b", telescope.buffers, { desc = "find buffer by name" })
 
 		vim.keymap.set("n", "<leader>gb", telescope.git_branches, { desc = "show git branches" })
 		vim.keymap.set("n", "<leader>gc", telescope.git_bcommits, { desc = "show git commits to buffer" })
