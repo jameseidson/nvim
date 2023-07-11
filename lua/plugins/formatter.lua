@@ -21,6 +21,7 @@ return {
 				lua = { ft.lua.stylua },
 				rust = { ft.rust.rustfmt },
 				python = { ft.python.black },
+				latex = { ft.latex.latexindent },
 			},
 		})
 
