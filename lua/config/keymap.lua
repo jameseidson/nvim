@@ -168,16 +168,6 @@ M.gitsigns = {
 	get_local = nil,
 }
 
-M.aerial = {
-	set_global = function()
-		vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle! right<cr>", { desc = "toggle symbol outline" })
-	end,
-	set_local = function(buf)
-		vim.keymap.set("n", "<Tab>", "<cmd>AerialNext<cr>", { buffer = buf, desc = "toggle symbol outline" })
-		vim.keymap.set("n", "<S-Tab>", "<cmd>AerialPrev<cr>", { buffer = buf, desc = "toggle symbol outline" })
-	end,
-}
-
 M.undotree = {
 	set_global = function()
 		vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "show undo tree" })
