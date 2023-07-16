@@ -11,12 +11,21 @@ vim.api.nvim_create_autocmd("FileType", {
 	desc = "disable auto-commenting on newline",
 })
 
-return {
-	fmt_on_save = function()
-		autocmd("BufWritePost", {
-			group = g_fmt,
-			command = "FormatWrite",
-			desc = "format automatically on save",
-		})
-	end,
-}
+local M = {}
+
+M.fmt_on_save = function()
+	autocmd("BufWritePost", {
+		group = g_fmt,
+		command = "FormatWrite",
+		desc = "format automatically on save",
+	})
+end
+
+M.compile_latex_on_save = function()
+	autocmd("BufWritePost", {
+		command = "!pdflatex % &> /dev/null",
+		desc = "compile latex automatically on save",
+	})
+end
+
+return M
