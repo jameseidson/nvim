@@ -22,6 +22,16 @@ return {
 				rust = { ft.rust.rustfmt },
 				python = { ft.python.black },
 				latex = { ft.latex.latexindent },
+				haskell = {
+					function()
+						return {
+							exe = "brittany",
+							args = {
+								"--write-mode inplace",
+							},
+						}
+					end,
+				},
 			},
 		})
 
