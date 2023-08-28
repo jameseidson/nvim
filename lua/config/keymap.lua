@@ -18,9 +18,12 @@ local M = {}
 
 M.tree = {
 	set_global = function(tree)
+		vim.keymap.set("n", "<C-b>", function()
+			tree.focus({ find_file = true })
+		end, { desc = "focus file explorer" })
 		vim.keymap.set("n", "<leader>e", function()
-			tree.toggle({ find_file = true })
-		end, { desc = "open file explorer" })
+			tree.toggle({ find_file = true, focus = false })
+		end, { desc = "toggle file explorer" })
 	end,
 
 	get_local = nil,
@@ -35,7 +38,7 @@ M.telescope = {
 		vim.keymap.set("n", "<leader>fj", telescope.jumplist, { desc = "find in jumplist" })
 		vim.keymap.set("n", "<leader>fm", telescope.marks, { desc = "find mark" })
 
-		vim.keymap.set("n", "<leader>b", telescope.buffers, { desc = "find buffer by name" })
+		vim.keymap.set("n", "<leader>fb", telescope.buffers, { desc = "find buffer by name" })
 
 		vim.keymap.set("n", "<leader>gb", telescope.git_branches, { desc = "show git branches" })
 		vim.keymap.set("n", "<leader>gc", telescope.git_bcommits, { desc = "show git commits to buffer" })
@@ -99,12 +102,10 @@ M.lsp = {
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = buf, desc = "hover docs" })
 		vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { buffer = buf, desc = "signature help" })
 		vim.keymap.set("n", "]d", function()
-			vim.diagnostic.goto_next()
-			vim.diagnostic.open_float(nil, { focus = false })
+			vim.diagnostic.goto_next({ float = false })
 		end, { desc = "goto next diagnostic" })
 		vim.keymap.set("n", "[d", function()
-			vim.diagnostic.goto_prev()
-			vim.diagnostic.open_float(nil, { focus = false })
+			vim.diagnostic.goto_prev({ float = false })
 		end, { desc = "goto previous diagnostic" })
 
 		vim.keymap.set(
@@ -171,6 +172,26 @@ M.gitsigns = {
 M.undotree = {
 	set_global = function()
 		vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "show undo tree" })
+	end,
+}
+
+M.trouble = {
+	set_global = function()
+		vim.keymap.set("n", "<leader>x", "<cmd>TroubleToggle<cr>", { desc = "toggle diagnostic viewer" })
+	end,
+}
+
+M.lsplines = {
+	set_global = function()
+		local active = false
+		vim.keymap.set("n", "<leader>k", function()
+			active = not active
+			if active then
+				vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
+			else
+				vim.diagnostic.config({ virtual_lines = false })
+			end
+		end, { desc = "toggle inline diagnostics" })
 	end,
 }
 

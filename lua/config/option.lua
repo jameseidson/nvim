@@ -23,5 +23,6 @@ vim.opt.sidescrolloff = 0
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 200
+vim.opt.splitright = true
 
 vim.diagnostic.config({ update_in_insert = true })

@@ -20,6 +20,7 @@ return {
 				markdown = { ft.markdown.prettierd },
 				lua = { ft.lua.stylua },
 				rust = { ft.rust.rustfmt },
+				toml = { ft.toml.taplo },
 				python = { ft.python.black },
 				latex = { ft.latex.latexindent },
 				haskell = {
