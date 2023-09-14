@@ -23,7 +23,8 @@ end
 
 M.compile_latex_on_save = function()
 	autocmd("BufWritePost", {
-		command = "!pdflatex % &> /dev/null",
+		command = "!pdflatex --shell-escape % &> /dev/null",
+		-- command = "!xelatex % &> /dev/null",
 		desc = "compile latex automatically on save",
 	})
 end

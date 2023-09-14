@@ -181,18 +181,4 @@ M.trouble = {
 	end,
 }
 
-M.lsplines = {
-	set_global = function()
-		local active = false
-		vim.keymap.set("n", "<leader>k", function()
-			active = not active
-			if active then
-				vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
-			else
-				vim.diagnostic.config({ virtual_lines = false })
-			end
-		end, { desc = "toggle inline diagnostics" })
-	end,
-}
-
 return M
