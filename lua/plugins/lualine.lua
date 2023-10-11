@@ -7,13 +7,13 @@ return {
 			opts = {},
 		},
 	},
-	init = function()
-		vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
-		vim.api.nvim_create_autocmd("User LspProgressStatusUpdated", {
-			group = "lualine_augroup",
-			callback = require("lualine").refresh,
-		})
-	end,
+	--init = function()
+	--	vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
+	--	vim.api.nvim_create_autocmd("User LspProgressStatusUpdated", {
+	--		group = "lualine_augroup",
+	--		callback = require("lualine").refresh,
+	--	})
+	--end,
 	opts = {
 		options = {
 			theme = "gruvbox",
