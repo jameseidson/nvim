@@ -21,9 +21,11 @@ return {
       ["<C-u>"] = cmp.mapping.scroll_docs(-4),
       ["<C-d>"] = cmp.mapping.scroll_docs(4),
       ["<C-Space>"] = cmp.mapping.complete(),
-      ["<C-e>"] = cmp.mapping.abort(),
+      ["<C-c>"] = cmp.mapping.abort(),
     }
 
-    opts.completion.completeopt = opts.completion.completeopt .. ",noselect"
+    opts.preselect = cmp.PreselectMode.None
+
+    opts.completion.completeopt = "noselect"
   end,
 }
