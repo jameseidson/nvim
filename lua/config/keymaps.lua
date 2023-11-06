@@ -4,13 +4,13 @@
 vim.keymap.set(
   "n",
   "]<Space>",
-  ':<C-u>put!=repeat(nr2char(10),v:count)<Bar>execute "\']+1"<CR>',
-  { desc = "Insert space above current line", silent = true }
+  ':<C-u>put =repeat(nr2char(10),v:count)<Bar>execute "\'[-1"<CR>',
+  { desc = "Insert space after current line", silent = true }
 )
 
 vim.keymap.set(
   "n",
   "[<Space>",
-  ':<C-u>put =repeat(nr2char(10),v:count)<Bar>execute "\'[-1"<CR>',
-  { desc = "Insert space below current line", silent = true }
+  ':<C-u>put!=repeat(nr2char(10),v:count)<Bar>execute "\']+1"<CR>',
+  { desc = "Insert space before current line", silent = true }
 )
