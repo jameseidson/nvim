@@ -13,4 +13,7 @@ return {
     end,
   },
   { "rose-pine/neovim", name = "rose-pine" },
+  { "kvrohit/rasmus.nvim" },
+  { "p00f/alabaster.nvim" },
+  { "sainttttt/flesh-and-blood" },
 }

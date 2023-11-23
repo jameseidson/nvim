@@ -8,3 +8,8 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
   desc = "disable auto-commenting on newline",
 })
+
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  pattern = { "*" },
+  command = [[%s/\s\+$//e]],
+})
