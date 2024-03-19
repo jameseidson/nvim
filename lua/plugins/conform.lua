@@ -25,6 +25,7 @@ return {
       ["markdown.mdx"] = { "prettierd" },
       ["graphql"] = { "prettierd" },
       ["handlebars"] = { "prettierd" },
+      ["bzl"] = { "buildifier" },
     },
   },
 }
