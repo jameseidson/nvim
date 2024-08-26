@@ -1,15 +1,7 @@
 return {
   "neovim/nvim-lspconfig",
   opts = {
-    capabilities = {
-      textDocument = {
-        completion = {
-          completionItem = {
-            snippetSupport = false,
-          },
-        },
-      },
-    },
+    inlay_hints = { enabled = false },
     servers = {
       clangd = {
         filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },

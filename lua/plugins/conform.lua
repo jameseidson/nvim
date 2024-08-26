@@ -4,11 +4,12 @@ return {
     formatters = {
       clang_format = {
         inherit = true,
-        prepend_args = { "--fallback-style=google" },
+        prepend_args = { "-style={ AllowShortLoopsOnASingleLine: true, AllowShortBlocksOnASingleLine: true }" },
       },
     },
     formatters_by_ft = {
       ["cpp"] = { "clang_format" },
+      ["c"] = { "clang_format" },
       ["javascript"] = { "prettierd" },
       ["javascriptreact"] = { "prettierd" },
       ["typescript"] = { "prettierd" },

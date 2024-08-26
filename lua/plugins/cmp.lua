@@ -4,30 +4,20 @@ return {
     local cmp = require("cmp")
     -- I have no idea why, but if this line isn't here, pressing <Tab> does not select the next completion item until
     -- the second time insert mode is entered in a buffer.
-    local _ = require("luasnip")
+    -- local _ = require("luasnip")
 
     opts.mapping = {
-      ["<CR>"] = cmp.mapping({
-        i = function(fallback)
-          if cmp.visible() and cmp.get_active_entry() then
-            cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-          else
-            fallback()
-          end
-        end,
-        s = cmp.config.disable,
-        c = cmp.config.disable,
-      }),
-
-      ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-      ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-      ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i" }),
-      ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i" }),
+      ["<CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
+      ["<S-CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
+      ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+      ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+      ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+      ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+      ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(8)),
+      ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-8)),
     }
 
-    opts.preselect = cmp.PreselectMode.None
-
-    opts.completion.completeopt = "noselect"
+    opts.preselect = cmp.PreselectMode.Item
 
     opts.sources = cmp.config.sources({
       { name = "nvim_lsp", priority = 1000 },
